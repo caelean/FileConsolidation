@@ -8,7 +8,7 @@
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.CopyOption.*;
+import java.nio.file.StandardCopyOption;
 
 public class FileConsolidation
 {
@@ -45,15 +45,19 @@ public class FileConsolidation
     {
       for(File file : files)
       {
-        if(!file.getName().startsWith("FileConsolidation."))
-        if(file.isDirectory())
-          copyFiles(file, newDir);
-        else
-        {
-          File copy = new File(newDir.getAbsolutePath() + "/" + file.getName());
-          System.out.println(file.getName() + " copied to " + copy.toPath());
-          Files.copy(file.toPath(), copy.toPath());
-        }
+        if(!file.getName().startsWith("FileConsolidation.") 
+                        && !file.getName().startsWith("."))
+          if(file.isDirectory())
+            copyFiles(file, newDir);
+          else
+          {
+            String path = newDir.getAbsolutePath();
+            File copy = new File(path + "/" + file.getName());
+            System.out.println(file.getName() + " copied to " + copy.toPath());
+
+            Files.copy(file.toPath(), copy.toPath(), 
+                       StandardCopyOption.REPLACE_EXISTING);
+          }
       }
     }
   }
