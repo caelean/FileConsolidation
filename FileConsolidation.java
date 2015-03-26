@@ -3,7 +3,8 @@
  *
  * FileConsolidation.java
  *
- * Consolidates all files in sub directories into a new directory
+ * Consolidates all files in the current directory and in 
+ * sub directories into a new directory
  */
 
 import java.io.*;
